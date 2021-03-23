@@ -2,19 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-
 <head>
-    <title>Hello World</title>
+    <title>Hello World!</title>
 </head>
 
 <body>
-    <h1>Hello World!</h1>
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+    </form>
 </body>
 
 </html>
 
 
 <!-- 
-    This simple view includes a link to the /hello page,
-     which is defined in the following Thymeleaf template (from src/main/resources/templates/hello.html):
+This simple view includes a link to the /hello page,
+which is defined in the following Thymeleaf template
+(from src/main/resources/templates/hello.html):
+
+
+We display the username by using Spring Security’s integration with HttpServletRequest#getRemoteUser().
+The “Sign Out” form submits a POST to /logout. Upon successfully logging out,
+it redirects the user to /login?logout.
 -->
